@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "241293524966",
+    "project_id": "telugu-bible-1a907",
+    "storage_bucket": "telugu-bible-1a907.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241293524966:android:330d363ef885d5b5076027",
+        "android_client_info": {
+          "package_name": "com.awiskartech.telugu_bible"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "241293524966-i1snv42cs3bv7luntimnbmm59lsr5qe2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIQdOBB1-YOXPihD3RuM0L-oJm5WUOMIw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "241293524966-i1snv42cs3bv7luntimnbmm59lsr5qe2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

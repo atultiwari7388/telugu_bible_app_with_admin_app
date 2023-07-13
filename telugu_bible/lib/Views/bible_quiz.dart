@@ -7,7 +7,7 @@ class BibleQuizScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        // automaticallyImplyLeading: false,
         title: const Text("Bible Quiz Screen"),
         elevation: 0,
       ),

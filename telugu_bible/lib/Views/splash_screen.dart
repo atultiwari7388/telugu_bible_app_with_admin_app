@@ -2,12 +2,12 @@ import 'package:connectivity/connectivity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:telugu_bible/Views/home_screen.dart';
 import 'package:telugu_bible/Views/login_screen.dart';
 import 'package:telugu_bible/helper/dimension_helper.dart';
 import 'package:telugu_bible/utis/app_constants.dart';
 import 'package:telugu_bible/utis/colors.dart';
+import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -62,6 +62,28 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // //top logo
+            // Container(
+            //   height: 150,
+            //   width: 150,
+            //   color: Colors.red,
+            //   child: const Text("Logo"),
+            // ),
+            // //father logo
+            // Container(
+            //   height: 150,
+            //   width: 150,
+            //   color: Colors.green,
+            //   child: const Text("Father Logo"),
+            // ),
+            // //owner app name
+            // Text("Dr. Nirmala Prasad Madduluri"),
+            // //app name
+            // Text("Satya Veda anweshana \nTelugu Bible App"),
+
+            // //In my bottom , show dr. name
+            // Text("By \nDr. Girija Prasad Samavedam"),
+
             Container(
               height: AppDimensionHelper.getHt(600),
               width: double.maxFinite,
@@ -71,7 +93,6 @@ class _SplashScreenState extends State<SplashScreen> {
                     image: AssetImage("assets/logo.png"), fit: BoxFit.contain),
               ),
             ),
-            //
             // Expanded(child: Container()),
             const Text(
               AppConstants.APP_NAME,

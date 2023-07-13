@@ -20,56 +20,60 @@ class FirebaseDatabaseServices {
   final Stream<QuerySnapshot> totalSermonNotes =
       FirebaseFirestore.instance.collection('sermonNotes').snapshots();
 
-  //for faqs section
+  //for holy bible section
   final CollectionReference holyBibleCollection =
       FirebaseFirestore.instance.collection("holyBible");
+
+  //for dailyQuotes section
+  final CollectionReference dailyQuotesCollection =
+      FirebaseFirestore.instance.collection("dailyQuote");
 
   final CollectionReference customerLists =
       FirebaseFirestore.instance.collection("users");
 
-  final CollectionReference agentsList =
-      FirebaseFirestore.instance.collection("users");
+  // final CollectionReference agentsList =
+  //     FirebaseFirestore.instance.collection("users");
 
-  final CollectionReference appointments =
-      FirebaseFirestore.instance.collection("appointment_booking");
+  // final CollectionReference appointments =
+  //     FirebaseFirestore.instance.collection("appointment_booking");
 
-  final CollectionReference platforms =
-      FirebaseFirestore.instance.collection("platforms");
+  // final CollectionReference platforms =
+  //     FirebaseFirestore.instance.collection("platforms");
 
-  final CollectionReference videos =
-      FirebaseFirestore.instance.collection("videos");
+  // final CollectionReference videos =
+  //     FirebaseFirestore.instance.collection("videos");
 
-  //===================== Add Platform ==============================
+//   //===================== Add Platform ==============================
 
-  Future<void> addPlatform(Map<String, dynamic> newData) {
-    return platforms.add(newData).then((value) {
-      showSnackBarMessage("Added", "New Data Added", Colors.green);
-      // ignore: invalid_return_type_for_catch_error
-    }).catchError((error) => showSnackBarMessage(
-        "Something went wrong", error.toString(), Colors.red));
-  }
+//   Future<void> addPlatform(Map<String, dynamic> newData) {
+//     return platforms.add(newData).then((value) {
+//       showSnackBarMessage("Added", "New Data Added", Colors.green);
+//       // ignore: invalid_return_type_for_catch_error
+//     }).catchError((error) => showSnackBarMessage(
+//         "Something went wrong", error.toString(), Colors.red));
+//   }
 
-//===================== Update data by id ==============================
+// //===================== Update data by id ==============================
 
-  Future<void> editPlatformUsingId(
-      String id, Map<String, dynamic> updatedData) {
-    return platforms.doc(id).update(updatedData).then((value) {
-      showSnackBarMessage("Updated", "Data Updated", Colors.green);
-      // ignore: invalid_return_type_for_catch_error
-    }).catchError((error) => showSnackBarMessage(
-        "Something went wrong", error.toString(), Colors.red));
-  }
+//   Future<void> editPlatformUsingId(
+//       String id, Map<String, dynamic> updatedData) {
+//     return platforms.doc(id).update(updatedData).then((value) {
+//       showSnackBarMessage("Updated", "Data Updated", Colors.green);
+//       // ignore: invalid_return_type_for_catch_error
+//     }).catchError((error) => showSnackBarMessage(
+//         "Something went wrong", error.toString(), Colors.red));
+//   }
 
-  //===================== Delete Platforms by id ==============================
+  // //===================== Delete Platforms by id ==============================
 
-  Future<void> deletePlatformUsingID(id) {
-    return platforms.doc(id).delete().then((value) {
-      showSnackBarMessage("Deleted", "Data Deleted", Colors.red);
-    })
-        // ignore: invalid_return_type_for_catch_error
-        .catchError((error) => showSnackBarMessage(
-            "Something went Wrong", error.toString(), Colors.red));
-  }
+  // Future<void> deletePlatformUsingID(id) {
+  //   return platforms.doc(id).delete().then((value) {
+  //     showSnackBarMessage("Deleted", "Data Deleted", Colors.red);
+  //   })
+  //       // ignore: invalid_return_type_for_catch_error
+  //       .catchError((error) => showSnackBarMessage(
+  //           "Something went Wrong", error.toString(), Colors.red));
+  // }
 
   //===================== Update user data by id ==============================
 
@@ -81,36 +85,36 @@ class FirebaseDatabaseServices {
         "Something went wrong", error.toString(), Colors.red));
   }
 
-//===================== Delete video by id ==============================
+// //===================== Delete video by id ==============================
 
-  Future<void> deleteVideoById(id) {
-    return videos.doc(id).delete().then((value) {
-      showSnackBarMessage("Deleted", "Data Deleted", Colors.red);
-    })
-        // ignore: invalid_return_type_for_catch_error
-        .catchError((error) => showSnackBarMessage(
-            "Something went Wrong", error.toString(), Colors.red));
-  }
+//   Future<void> deleteVideoById(id) {
+//     return videos.doc(id).delete().then((value) {
+//       showSnackBarMessage("Deleted", "Data Deleted", Colors.red);
+//     })
+//         // ignore: invalid_return_type_for_catch_error
+//         .catchError((error) => showSnackBarMessage(
+//             "Something went Wrong", error.toString(), Colors.red));
+//   }
 
-  //===================== Update Video data by id ==============================
+//   //===================== Update Video data by id ==============================
 
-  Future<void> editVideoById(String id, Map<String, dynamic> updatedData) {
-    return videos.doc(id).update(updatedData).then((value) {
-      showSnackBarMessage("Updated", "Data Updated", Colors.green);
-      // ignore: invalid_return_type_for_catch_error
-    }).catchError((error) => showSnackBarMessage(
-        "Something went wrong", error.toString(), Colors.red));
-  }
+//   Future<void> editVideoById(String id, Map<String, dynamic> updatedData) {
+//     return videos.doc(id).update(updatedData).then((value) {
+//       showSnackBarMessage("Updated", "Data Updated", Colors.green);
+//       // ignore: invalid_return_type_for_catch_error
+//     }).catchError((error) => showSnackBarMessage(
+//         "Something went wrong", error.toString(), Colors.red));
+//   }
 
-  //===================== Add Video ==============================
+//   //===================== Add Video ==============================
 
-  Future<void> addVideo(Map<String, dynamic> newData) {
-    return videos.add(newData).then((value) {
-      showSnackBarMessage("Added", "New Data Added", Colors.green);
-      // ignore: invalid_return_type_for_catch_error
-    }).catchError((error) => showSnackBarMessage(
-        "Something went wrong", error.toString(), Colors.red));
-  }
+//   Future<void> addVideo(Map<String, dynamic> newData) {
+//     return videos.add(newData).then((value) {
+//       showSnackBarMessage("Added", "New Data Added", Colors.green);
+//       // ignore: invalid_return_type_for_catch_error
+//     }).catchError((error) => showSnackBarMessage(
+//         "Something went wrong", error.toString(), Colors.red));
+//   }
 
 //===================== Delete faq by id ==============================
 
@@ -141,6 +145,23 @@ class FirebaseDatabaseServices {
       // ignore: invalid_return_type_for_catch_error
     }).catchError((error) => showSnackBarMessage(
         "Something went wrong", error.toString(), Colors.red));
+  }
+
+  Future<void> addQuotesData(Map<String, dynamic> newData) {
+    return dailyQuotesCollection.add(newData).then((value) {
+      showSnackBarMessage("Added", "New Data Added", Colors.green);
+      // ignore: invalid_return_type_for_catch_error
+    }).catchError((error) => showSnackBarMessage(
+        "Something went wrong", error.toString(), Colors.red));
+  }
+
+  Future<void> deleteQuoteDataUsingID(id) {
+    return dailyQuotesCollection.doc(id).delete().then((value) {
+      showSnackBarMessage("Deleted", "Data Deleted", Colors.red);
+    })
+        // ignore: invalid_return_type_for_catch_error
+        .catchError((error) => showSnackBarMessage(
+            "Something went Wrong", error.toString(), Colors.red));
   }
 
 //================= fetch data using uid =============================

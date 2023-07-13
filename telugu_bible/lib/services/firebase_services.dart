@@ -15,6 +15,14 @@ class FirebaseServices {
   final CollectionReference holyBible =
       FirebaseFirestore.instance.collection("holyBible");
 
+//================= Collection FavoriteDatas ====================
+  final CollectionReference favorite =
+      FirebaseFirestore.instance.collection("favorite");
+
+  //================= Collection dailyQuotes of the day ====================
+  final CollectionReference<Map<String, dynamic>> dailyQuotesOfTheDay =
+      FirebaseFirestore.instance.collection("dailyQuote");
+
 //==================== Store User Data to Firebase ========================
 
   Future<void> storeUserData(User user) async {

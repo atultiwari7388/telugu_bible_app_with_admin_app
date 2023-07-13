@@ -24,7 +24,7 @@ class _SermonNotesScreenState extends State<SermonNotesScreen> {
           return Scaffold(
             // backgroundColor: AppColors.kLightGreyColor,
             appBar: AppBar(
-              automaticallyImplyLeading: false,
+              // automaticallyImplyLeading: false,
               title: const Text("Sermon Lists"),
               elevation: 0,
             ),
@@ -44,8 +44,7 @@ class _SermonNotesScreenState extends State<SermonNotesScreen> {
                             final title = sermonData["title"];
                             final speaker = sermonData["speaker"];
                             final place = sermonData["place"];
-                            return
-                              Container(
+                            return Container(
                               padding:
                                   EdgeInsets.all(AppDimensionHelper.getHt(12)),
                               margin:
@@ -61,7 +60,8 @@ class _SermonNotesScreenState extends State<SermonNotesScreen> {
                               //         AppDimensionHelper.getHt(20)),
                               //   ),
                               // ),
-                              child:Text("${index+1}. "+title,style: AppFontStyles.MediumHeadingText),
+                              child: Text("${index + 1}. " + title,
+                                  style: AppFontStyles.MediumHeadingText),
                             );
                           },
                         )

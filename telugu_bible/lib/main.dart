@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:telugu_bible/Views/splash_screen.dart';
 import 'package:telugu_bible/utis/app_constants.dart';
 import 'package:get/get.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
+  tz.initializeTimeZones();
+  tz.setLocalLocation(tz.getLocation('Asia/Kolkata'));
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:telugu_admin/screens/Admin/add_daily_quotes.dart';
 import 'package:telugu_admin/screens/Admin/admin_transaction_screen.dart';
 import 'package:telugu_admin/screens/Admin/admin_appointment_screen.dart';
 import 'package:telugu_admin/screens/Admin/all_customer_list.dart';
@@ -45,27 +46,27 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         });
         break;
 
-      case AdminBibleQuizScreen.id:
-        setState(() {
-          _selectedScreen = const AdminBibleQuizScreen();
-        });
-        break;
-
-      case AdminBibleDictionaryScreen.id:
-        setState(() {
-          _selectedScreen = const AdminBibleDictionaryScreen();
-        });
-        break;
-
-      case AdminContactsScreen.id:
-        setState(() {
-          _selectedScreen = const AdminContactsScreen();
-        });
-        break;
-
-      // case AdminFAQScreen.id:
+      // case AdminContactsScreen.id:
       //   setState(() {
-      //     _selectedScreen = const AdminFAQScreen();
+      //     _selectedScreen = const AdminContactsScreen();
+      //   });
+      //   break;
+
+      case AddDailyQuotes.id:
+        setState(() {
+          _selectedScreen = const AddDailyQuotes();
+        });
+        break;
+
+      // case AdminBibleQuizScreen.id:
+      //   setState(() {
+      //     _selectedScreen = const AdminBibleQuizScreen();
+      //   });
+      //   break;
+
+      // case AdminBibleDictionaryScreen.id:
+      //   setState(() {
+      //     _selectedScreen = const AdminBibleDictionaryScreen();
       //   });
       //   break;
 
@@ -168,25 +169,26 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             icon: FontAwesomeIcons.user,
           ),
           AdminMenuItem(
-            title: 'Bible Quiz',
-            route: AdminBibleQuizScreen.id,
-            icon: FontAwesomeIcons.calendar,
-          ),
-          AdminMenuItem(
-            title: 'Bible Dictionary',
-            route: AdminBibleDictionaryScreen.id,
-            icon: FontAwesomeIcons.clockRotateLeft,
-          ),
-          AdminMenuItem(
-            title: 'Contacts',
-            route: AdminContactsScreen.id,
-            icon: FontAwesomeIcons.amazon,
+            title: 'Add Quotes',
+            route: AddDailyQuotes.id,
+            icon: FontAwesomeIcons.noteSticky,
           ),
           // AdminMenuItem(
-          //   title: 'FAQs',
-          //   route: AdminFAQScreen.id,
-          //   icon: FontAwesomeIcons.question,
+          //   // title: 'Contacts',
+          //   // route: AdminContactsScreen.id,
+          //   // icon: FontAwesomeIcons.amazon,
           // ),
+          // AdminMenuItem(
+          //   title: 'Bible Quiz',
+          //   route: AdminBibleQuizScreen.id,
+          //   icon: FontAwesomeIcons.calendar,
+          // ),
+          // AdminMenuItem(
+          //   title: 'Bible Dictionary',
+          //   route: AdminBibleDictionaryScreen.id,
+          //   icon: FontAwesomeIcons.clockRotateLeft,
+          // ),
+
           // AdminMenuItem(
           //   title: 'Videos',
           //   route: AdminVideoScreen.id,

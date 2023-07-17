@@ -15,7 +15,7 @@ class _HistoryOfMNPScreenState extends State<HistoryOfMNPScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("History of MNP Screen"),
+        title: const Text("History of MNP"),
       ),
       body: SafeArea(
         child: SingleChildScrollView(

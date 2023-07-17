@@ -32,7 +32,7 @@ class _EnglishBibleScreenState extends State<EnglishBibleScreen> {
   }
 
   Future<void> loadData() async {
-    final snapshot = await firebaseServices.holyBible
+    final snapshot = await firebaseServices.englishBible
         .orderBy("created_at", descending: false)
         .get();
 

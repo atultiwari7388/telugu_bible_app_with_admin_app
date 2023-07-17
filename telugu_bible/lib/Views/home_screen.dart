@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:telugu_bible/Views/about_the_author_screen.dart';
 import 'package:telugu_bible/Views/contacts_screen.dart';
 import 'package:telugu_bible/Views/english_bible_screen.dart';
@@ -10,8 +9,9 @@ import 'package:telugu_bible/Views/from_the_associates_screen.dart';
 import 'package:telugu_bible/Views/from_the_author_screen.dart';
 import 'package:telugu_bible/Views/history_of_mnp_screen.dart';
 import 'package:telugu_bible/Views/holy_bible_screen.dart';
-import 'package:telugu_bible/Views/my_profile_screen.dart';
+import 'package:telugu_bible/Views/how_to_use_app_screen.dart';
 import 'package:telugu_bible/Views/schedule_bible_study.dart';
+import 'package:telugu_bible/Views/schedule_family_prayer_screen.dart';
 import 'package:telugu_bible/Views/search_screen.dart';
 import 'package:telugu_bible/Views/sermon_notes.dart';
 import 'package:telugu_bible/controllers/auth_controller.dart';
@@ -22,8 +22,9 @@ import 'package:get/get.dart';
 import 'package:share/share.dart';
 import 'package:telugu_bible/utis/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:telugu_bible/utis/config.dart';
 import 'package:telugu_bible/utis/snack_bar_msg.dart';
-
+import 'package:telugu_bible/widgets/custom_square_button_widget.dart';
 import 'bible_quiz.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -38,12 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final authController = Get.put(AuthController());
   final FirebaseServices firebaseServices = FirebaseServices();
 
-  String formatDateWithTimeStamp(Timestamp timestamp) {
-    final DateTime dateTime = timestamp.toDate();
-    final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
-    return dateFormat.format(dateTime);
-  }
-
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -53,18 +48,91 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: const Text("Quotes of the Day"),
+        title: const Text("Welcome to Satya Veda Anweshana"),
       ),
-      body: Padding(
+      body: buildBodySection(context),
+      drawer: buildDrawerWidget(),
+      bottomSheet: Container(
+        // margin: EdgeInsets.only(left:AppDimensionHelper.getHt(6)),
+        padding: EdgeInsets.all(AppDimensionHelper.getHt(5)),
+        color: Colors.white,
+        child: Row(
+          children: [
+            InkWell(
+              onTap: () => Get.to(() => const SearchScreen()),
+              child: Container(
+                height: AppDimensionHelper.getHt(50),
+                width: AppDimensionHelper.getWd(70),
+                decoration: const BoxDecoration(
+                    color: AppColors.kPrimaryColor,
+                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                child: const Center(
+                  child: Text(
+                    "Voice Search",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: InkWell(
+                onTap: () => Get.to(() => const SearchScreen()),
+                child: Container(
+                  height: AppDimensionHelper.getHt(50),
+                  // width: AppDimensionHelper.getWd(70),
+                  decoration: const BoxDecoration(
+                    color: AppColors.kWhiteColor,
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Search\n Please enter the key Word",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.lato(
+                        color: AppColors.kBlackColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () => Get.to(() => const HowtoUseAppScreen()),
+              child: Container(
+                height: AppDimensionHelper.getHt(50),
+                width: AppDimensionHelper.getWd(70),
+                decoration: const BoxDecoration(
+                    color: AppColors.kPrimaryColor,
+                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                child: const Center(
+                  child: Text(
+                    "How to use App",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+//====================== body Section ===========================
+  Widget buildBodySection(BuildContext context) {
+    return SingleChildScrollView(
+      child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            //quote os the day
             Container(
               // padding: EdgeInsets.all(AppDimensionHelper.getHt(4)),
               margin: EdgeInsets.all(AppDimensionHelper.getHt(4)),
-              height: 200,
+              height: AppDimensionHelper.getHt(180),
               child: StreamBuilder(
                 stream: firebaseServices.dailyQuotesOfTheDay
                     .orderBy("created_at", descending: true)
@@ -74,8 +142,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     final List<QueryDocumentSnapshot> dailyQuotesData =
                         snapshot.data!.docs;
                     return ListView.builder(
+                      shrinkWrap: true,
                       // scrollDirection: Axis.horizontal,
-                      physics: const BouncingScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       // itemCount: dailyQuotesData.length,
                       itemCount: 1,
                       itemBuilder: (ctx, index) {
@@ -85,8 +154,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         final quoteOftheDay = quotesData["quote"];
                         final createdDate = quotesData["created_at"];
 
-                        final formatedDate =
-                            formatDateWithTimeStamp(createdDate);
+                        final formatedDate = AppConfigData()
+                            .formatDateWithTimeStamp(createdDate);
                         return Container(
                           padding: EdgeInsets.all(AppDimensionHelper.getHt(8)),
                           margin: EdgeInsets.all(AppDimensionHelper.getHt(8)),
@@ -122,7 +191,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                           color: AppColors.kDarkGreyColor)),
                                   IconButton(
                                       onPressed: () {
-                                        _shareQuotesApp(title, quoteOftheDay);
+                                        // _shareQuotesApp(title, quoteOftheDay);
+                                        AppConfigData().shareQuotesApp(
+                                            title, quoteOftheDay);
                                       },
                                       icon: const Icon(Icons.share))
                                 ],
@@ -160,34 +231,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 }),
               ),
             ),
-            SizedBox(height: AppDimensionHelper.getHt(10)),
             buildMenusSection(context),
-            SizedBox(height: AppDimensionHelper.getHt(10)),
-
+            SizedBox(height: AppDimensionHelper.getHt(20)),
             //App Name and Author Name
             Column(
               children: [
                 Text("Satya",
                     style: GoogleFonts.nunitoSans(
-                        fontSize: AppDimensionHelper.getHt(25),
+                        fontSize: AppDimensionHelper.getHt(30),
                         color: Colors.black,
                         fontWeight: FontWeight.bold)),
                 SizedBox(height: AppDimensionHelper.getHt(5)),
                 Text("Veda",
-                    style: GoogleFonts.nunitoSans(
+                    style: GoogleFonts.abel(
                         fontSize: AppDimensionHelper.getHt(25),
                         color: Colors.black,
                         fontWeight: FontWeight.bold)),
                 SizedBox(height: AppDimensionHelper.getHt(5)),
                 Text("Anweshana",
-                    style: GoogleFonts.nunitoSans(
-                        fontSize: AppDimensionHelper.getHt(25),
+                    style: GoogleFonts.lato(
+                        fontSize: AppDimensionHelper.getHt(30),
                         color: Colors.black,
                         fontWeight: FontWeight.bold)),
-                SizedBox(height: AppDimensionHelper.getHt(15)),
+                SizedBox(height: AppDimensionHelper.getHt(35)),
                 Text("Telugu Bible App",
                     style: GoogleFonts.nunitoSans(
-                        fontSize: AppDimensionHelper.getHt(30),
+                        fontSize: AppDimensionHelper.getHt(40),
                         color: Colors.black,
                         fontWeight: FontWeight.bold)),
               ],
@@ -195,79 +264,52 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      drawer: buildDrawerWidget(),
     );
   }
 
+//============== Menu Sections ======================
   Widget buildMenusSection(BuildContext context) {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       clipBehavior: Clip.antiAlias,
-      spacing: AppDimensionHelper.getHt(8),
+      spacing: AppDimensionHelper.getHt(20),
       runSpacing: AppDimensionHelper.getHt(10),
       children: [
-        ElevatedButton(
-            onPressed: () => scaffoldKey.currentState?.openDrawer(),
-            child: Text("Menu",
-                style:
-                    GoogleFonts.nunitoSans(fontSize: 16, color: Colors.white))),
-        ElevatedButton(
-            onPressed: () => Get.to(() => const HolyBibleScreen()),
-            child: Text("Telugu\n Bible",
-                style:
-                    GoogleFonts.nunitoSans(fontSize: 16, color: Colors.white))),
-        ElevatedButton(
-            onPressed: () => Get.to(() => const EnglishBibleScreen()),
-            child: Text("English\n Bible",
-                style:
-                    GoogleFonts.nunitoSans(fontSize: 16, color: Colors.white))),
-        ElevatedButton(
-            onPressed: () => Get.to(() => const SearchScreen()),
-            child: Text("Go to",
-                style:
-                    GoogleFonts.nunitoSans(fontSize: 16, color: Colors.white))),
-        ElevatedButton(
-            onPressed: () => Get.to(() => const FromTheAuthorScreen()),
-            child: Text("From the\n Author",
-                style:
-                    GoogleFonts.nunitoSans(fontSize: 16, color: Colors.white))),
-        ElevatedButton(
-            onPressed: () => Get.to(() => const FromTheAssociatesScreen()),
-            child: Text("From the\n Associates",
-                style:
-                    GoogleFonts.nunitoSans(fontSize: 16, color: Colors.white))),
-        ElevatedButton(
-            onPressed: () => Get.to(() => const BibleQuizScreen()),
-            child: Text("Bible Quiz",
-                style:
-                    GoogleFonts.nunitoSans(fontSize: 16, color: Colors.white))),
-        ElevatedButton(
-            onPressed: () => Get.to(() => const HistoryOfMNPScreen()),
-            child: Text("History of\n MNP",
-                style:
-                    GoogleFonts.nunitoSans(fontSize: 16, color: Colors.white))),
-        ElevatedButton(
-            onPressed: () => Get.to(() => const AboutTheAuthorScreen()),
-            child: Text("About the\n Author",
-                style:
-                    GoogleFonts.nunitoSans(fontSize: 16, color: Colors.white))),
-        ElevatedButton(
-            onPressed: () => Get.to(() => const ContactsScreen()),
-            child: Text("Contact the\n Author",
-                style:
-                    GoogleFonts.nunitoSans(fontSize: 16, color: Colors.white))),
+        CustomSquareButtonWidget(
+            text: "Menu", onTap: () => scaffoldKey.currentState?.openDrawer()),
+        CustomSquareButtonWidget(text: "Index", onTap: () {}),
+        CustomSquareButtonWidget(
+            text: "Telugu Bible",
+            onTap: () => Get.to(() => const HolyBibleScreen())),
+        CustomSquareButtonWidget(
+            text: "English Bible",
+            onTap: () => Get.to(() => const EnglishBibleScreen())),
+        CustomSquareButtonWidget(
+            text: "Go to", onTap: () => Get.to(() => const SearchScreen())),
+        CustomSquareButtonWidget(text: "Notifications", onTap: () {}),
+        CustomSquareButtonWidget(
+            text: "From the Author",
+            onTap: () => Get.to(() => const FromTheAuthorScreen())),
+        CustomSquareButtonWidget(
+            text: "From the Associates",
+            onTap: () => Get.to(() => const FromTheAssociatesScreen())),
+        CustomSquareButtonWidget(
+            text: "Bible Quiz",
+            onTap: () => Get.to(() => const BibleQuizScreen())),
+        CustomSquareButtonWidget(
+            text: "History of MNP",
+            onTap: () => Get.to(() => const HistoryOfMNPScreen())),
+        CustomSquareButtonWidget(
+            text: "About the Author",
+            onTap: () => Get.to(() => const AboutTheAuthorScreen())),
+        CustomSquareButtonWidget(
+            text: "Contact the Author",
+            onTap: () => Get.to(() => const ContactsScreen())),
       ],
     );
   }
 
-  void _shareQuotesApp(String title, String quote) {
-    const String appUrl =
-        "https://play.google.com/store/apps/details?id=com.awiskartech.telugu_bible";
-    final String message =
-        "Check out this quote from the app \"$title\":\n\n\"$quote\"\n\nDownload the app from: $appUrl";
-    Share.share(message);
-  }
-
+//================ Build drawer widget  =====================
   Widget buildDrawerWidget() {
     return Drawer(
       child: ListView(
@@ -283,24 +325,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.bold),
                 ),
               )),
-          ListTile(
-            onTap: () => Get.to(() => const MyProfileScreen()),
-            leading: const Icon(Icons.account_circle, color: Colors.blueGrey),
-            title: Text("My Account",
-                style: GoogleFonts.nunitoSans(
-                    fontSize: 16,
-                    color: Colors.blueGrey,
-                    fontWeight: FontWeight.bold)),
-          ),
-          ListTile(
-            onTap: () => Get.to(() => const HolyBibleScreen()),
-            leading: const Icon(Icons.menu_book, color: Colors.blueGrey),
-            title: Text("Holy Bible",
-                style: GoogleFonts.nunitoSans(
-                    fontSize: 16,
-                    color: Colors.blueGrey,
-                    fontWeight: FontWeight.bold)),
-          ),
           ListTile(
             onTap: () => Get.to(() => const SermonNotesScreen()),
             leading: const Icon(Icons.note_sharp, color: Colors.blueGrey),
@@ -329,18 +353,28 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontWeight: FontWeight.bold)),
           ),
           ListTile(
-            onTap: () => Get.to(() => const ContactsScreen()),
-            leading: const Icon(Icons.contact_mail, color: Colors.blueGrey),
-            title: Text("Connect us on Social Media",
+            onTap: () => Get.to(() => const ScheduleYourFamilyPrayerScreen()),
+            leading: const Icon(Icons.schedule, color: Colors.blueGrey),
+            title: Text("Schedule Your Family Prayer",
                 style: GoogleFonts.nunitoSans(
                     fontSize: 16,
                     color: Colors.blueGrey,
                     fontWeight: FontWeight.bold)),
           ),
           ListTile(
-            onTap: () => Get.to(() => const SearchScreen()),
-            leading: const Icon(Icons.search, color: Colors.blueGrey),
-            title: Text("Search from bible",
+            onTap: () => Get.to(() => const HolyBibleScreen()),
+            leading: const Icon(Icons.menu_book, color: Colors.blueGrey),
+            title: Text("Know your Bible Knowledge",
+                style: GoogleFonts.nunitoSans(
+                    fontSize: 16,
+                    color: Colors.blueGrey,
+                    fontWeight: FontWeight.bold)),
+          ),
+          ListTile(
+            onTap: () => Get.to(() => const ContactsScreen()),
+            leading:
+                const Icon(Icons.facebook_outlined, color: Colors.blueGrey),
+            title: Text("Connect us on Social Media",
                 style: GoogleFonts.nunitoSans(
                     fontSize: 16,
                     color: Colors.blueGrey,
@@ -349,17 +383,44 @@ class _HomeScreenState extends State<HomeScreen> {
           ListTile(
             onTap: () => _shareApp(),
             leading: const Icon(Icons.share, color: Colors.blueGrey),
-            title: Text("Share this app",
+            title: Text("Share the App",
                 style: GoogleFonts.nunitoSans(
                     fontSize: 16,
                     color: Colors.blueGrey,
                     fontWeight: FontWeight.bold)),
           ),
           ListTile(
-            onTap: () => showSnackBarMessage("Sorry !",
-                "Currently This Functionality not Available", Colors.orange),
+            onTap: () => _shareApp(),
+            leading: const Icon(Icons.update, color: Colors.blueGrey),
+            title: Text("Update the App",
+                style: GoogleFonts.nunitoSans(
+                    fontSize: 16,
+                    color: Colors.blueGrey,
+                    fontWeight: FontWeight.bold)),
+          ),
+          ListTile(
+            onTap: () => AppConfigData().rateTheApp(),
             leading: const Icon(Icons.rate_review, color: Colors.blueGrey),
-            title: Text("Rate us",
+            title: Text("Rate the App",
+                style: GoogleFonts.nunitoSans(
+                    fontSize: 16,
+                    color: Colors.blueGrey,
+                    fontWeight: FontWeight.bold)),
+          ),
+          ListTile(
+            onTap: () => showSnackBarMessage(
+                "Umm", "Currently no apps available", Colors.indigo),
+            leading: const Icon(Icons.apps, color: Colors.blueGrey),
+            title: Text("Other Connected Apps",
+                style: GoogleFonts.nunitoSans(
+                    fontSize: 16,
+                    color: Colors.blueGrey,
+                    fontWeight: FontWeight.bold)),
+          ),
+          ListTile(
+            onTap: () => Navigator.pop(context),
+            leading: const Icon(Icons.home, color: Colors.blueGrey),
+            title: Text("Home",
                 style: GoogleFonts.nunitoSans(
                     fontSize: 16,
                     color: Colors.blueGrey,
@@ -379,6 +440,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+//================= Share App Functionality =================
   void _shareApp() {
     const String appUrl =
         "https://play.google.com/store/apps/details?id=com.awiskartech.telugu_bible";
@@ -386,6 +448,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Share.share(message);
   }
 
+//================= Logout Functionality =======================
   Future<dynamic> buildLogoutWidget() {
     return showDialog(
       context: context,

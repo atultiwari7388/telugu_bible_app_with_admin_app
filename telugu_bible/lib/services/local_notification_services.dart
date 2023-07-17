@@ -19,16 +19,17 @@ class NotificationServices {
   void sendNotification(String title, String body) async {
     AndroidNotificationDetails androidNotificationDetails =
         const AndroidNotificationDetails(
-      "telugu_bible_app",
+      "default_notification_channel_id",
       "telugu_bible",
       importance: Importance.max,
       priority: Priority.high,
       playSound: true,
       enableVibration: true,
       enableLights: true,
-      category: AndroidNotificationCategory.alarm,
-      audioAttributesUsage: AudioAttributesUsage.alarm,
-      timeoutAfter: 30000,
+      category: AndroidNotificationCategory.progress,
+      // audioAttributesUsage: AudioAttributesUsage.alarm,
+      timeoutAfter: 2600,
+      sound: RawResourceAndroidNotificationSound("noti"),
     );
 
     NotificationDetails notificationDetails =
@@ -54,9 +55,9 @@ class NotificationServices {
       playSound: true,
       enableVibration: true,
       enableLights: true,
-      category: AndroidNotificationCategory.alarm,
-      audioAttributesUsage: AudioAttributesUsage.alarm,
-      timeoutAfter: 30000,
+      category: AndroidNotificationCategory.progress,
+      // audioAttributesUsage: AudioAttributesUsage.,
+      timeoutAfter: 2600,
       sound: RawResourceAndroidNotificationSound("noti"),
     );
 

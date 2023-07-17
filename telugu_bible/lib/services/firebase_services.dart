@@ -15,6 +15,14 @@ class FirebaseServices {
   final CollectionReference holyBible =
       FirebaseFirestore.instance.collection("holyBible");
 
+//================= Collection EnglishBible ====================
+  final CollectionReference englishBible =
+      FirebaseFirestore.instance.collection("englishBible");
+
+//================= From The Author ====================
+  final CollectionReference fromTheAuthor =
+      FirebaseFirestore.instance.collection("fromTheAuthor");
+
 //================= Collection FavoriteDatas ====================
   final CollectionReference favorite =
       FirebaseFirestore.instance.collection("favorite");
@@ -37,7 +45,7 @@ class FirebaseServices {
         // Add additional user data fields as per your requirements
       });
     } catch (e) {
-      print('Error storing user data: $e');
+      log('Error storing user data: $e');
     }
   }
 
@@ -52,14 +60,14 @@ class FirebaseServices {
             documentSnapshot.data() as Map<String, dynamic>);
       }
     } catch (e) {
-      print('Error fetching user details: $e');
+      log('Error fetching user details: $e');
     }
     return null;
   }
 
   //=============================  Store data into Firebase ======================
 
-  Future<void> storeDataToFirebase(
+  Future<void> storeSermonDataToFirebase(
     Map<String, dynamic> newData,
   ) async {
     try {
@@ -76,6 +84,26 @@ class FirebaseServices {
       log(e.toString());
       showSnackBarMessage("Error", e.toString(), Colors.red);
     }
+  }
+
+//========================= Edit Functionality ================================
+  Future<void> editDataUsingId(String id, Map<String, dynamic> updatedData) {
+    return sermonNotes.doc(id).update(updatedData).then((value) {
+      showSnackBarMessage("Updated", "Data Updated", Colors.green);
+      // ignore: invalid_return_type_for_catch_error
+    }).catchError((error) => showSnackBarMessage(
+        "Something went wrong", error.toString(), Colors.red));
+  }
+
+//============================= delete data to firebase =======================
+
+  Future<void> deleteSermonDataUsingId(id) {
+    return sermonNotes.doc(id).delete().then((value) {
+      showSnackBarMessage("Deleted", "Data Deleted", Colors.red);
+    })
+        // ignore: invalid_return_type_for_catch_error
+        .catchError((error) => showSnackBarMessage(
+            "Something went Wrong", error.toString(), Colors.red));
   }
 
 //============================ Collection Name =======================

@@ -54,6 +54,8 @@ dependencies:
   flutter_local_notifications: 
   #for time zone
   timezone: 
+  #for launch url
+  url_launcher: 
 
 
 

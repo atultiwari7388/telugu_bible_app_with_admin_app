@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:telugu_bible/services/local_notification_services.dart';
 import 'package:telugu_bible/utis/snack_bar_msg.dart';
 
-class ScheduleYourBibleStudyScreen extends StatefulWidget {
-  const ScheduleYourBibleStudyScreen({Key? key}) : super(key: key);
+class ScheduleYourFamilyPrayerScreen extends StatefulWidget {
+  const ScheduleYourFamilyPrayerScreen({Key? key}) : super(key: key);
 
   @override
-  State<ScheduleYourBibleStudyScreen> createState() =>
-      _ScheduleYourBibleStudyScreenState();
+  State<ScheduleYourFamilyPrayerScreen> createState() =>
+      _ScheduleYourFamilyPrayerScreenState();
 }
 
-class _ScheduleYourBibleStudyScreenState
-    extends State<ScheduleYourBibleStudyScreen> {
+class _ScheduleYourFamilyPrayerScreenState
+    extends State<ScheduleYourFamilyPrayerScreen> {
   late DateTime selectedDateTime;
 
   NotificationServices notificationServices = NotificationServices();
@@ -28,7 +28,7 @@ class _ScheduleYourBibleStudyScreenState
     return Scaffold(
       appBar: AppBar(
         // automaticallyImplyLeading: false,
-        title: const Text("Schedule Your Bible Study"),
+        title: const Text("Schedule Your Family Prayer"),
         elevation: 0,
       ),
       body: Center(

@@ -7,17 +7,18 @@ import 'package:telugu_admin/constants/utils/colors.utils.dart';
 import 'package:telugu_admin/constants/utils/styles.utils.dart';
 import 'package:telugu_admin/services/firebase_db_services.dart';
 
-class AdminHolyBibleScreen extends StatefulWidget {
-  static const String id = "admin-holybible";
+class AdminEnglishBibleScreen extends StatefulWidget {
+  static const String id = "admin-englishBible";
 
-  const AdminHolyBibleScreen({Key? key}) : super(key: key);
+  const AdminEnglishBibleScreen({Key? key}) : super(key: key);
 
   @override
-  State<AdminHolyBibleScreen> createState() => _AdminHolyBibleScreenState();
+  State<AdminEnglishBibleScreen> createState() =>
+      _AdminEnglishBibleScreenState();
 }
 
-class _AdminHolyBibleScreenState extends State<AdminHolyBibleScreen> {
-  String? newSelectedPlatform;
+class _AdminEnglishBibleScreenState extends State<AdminEnglishBibleScreen> {
+  // String? newSelectedPlatform;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,7 +30,7 @@ class _AdminHolyBibleScreenState extends State<AdminHolyBibleScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Holy Bible", style: AppStyles.headlineText),
+              Text("English Bible", style: AppStyles.headlineText),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
                 onPressed: () => buildAddDataFunction(),
@@ -46,7 +47,7 @@ class _AdminHolyBibleScreenState extends State<AdminHolyBibleScreen> {
           const SizedBox(height: 10),
           StreamBuilder<QuerySnapshot>(
             stream: FirebaseDatabaseServices()
-                .holyBibleCollection
+                .englishBibleCollection
                 .orderBy("created_at", descending: false)
                 .snapshots(),
             builder: (context, snapshot) {
@@ -71,8 +72,6 @@ class _AdminHolyBibleScreenState extends State<AdminHolyBibleScreen> {
                     final dataList = List.from(holyData['dataList']);
 
                     final documentId = holyData.id;
-                    // final platformTitle = holyData["name"];
-                    // final description = holyData["description"];
 
                     return reusableRowWidget(
                       serialNumber.toString(),
@@ -129,15 +128,16 @@ class _AdminHolyBibleScreenState extends State<AdminHolyBibleScreen> {
               Expanded(
                 child: Row(
                   children: [
-                    ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green),
-                        onPressed: () {
-                          //firebase data
-                          // buildEditDataWidget(title, description, holyId);
-                        },
-                        icon: const Icon(Icons.edit, color: Colors.white),
-                        label: const Text("Edit")),
+                    Container(),
+                    // ElevatedButton.icon(
+                    //     style: ElevatedButton.styleFrom(
+                    //         backgroundColor: Colors.green),
+                    //     onPressed: () {
+                    //       //firebase data
+                    //       // buildEditDataWidget(title, description, holyId);
+                    //     },
+                    //     icon: const Icon(Icons.edit, color: Colors.white),
+                    //     label: const Text("Edit")),
                     const SizedBox(width: 20),
                     ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
@@ -174,7 +174,7 @@ class _AdminHolyBibleScreenState extends State<AdminHolyBibleScreen> {
           ),
           TextButton(
             onPressed: () {
-              FirebaseDatabaseServices().deleteDataUsingID(faqId);
+              FirebaseDatabaseServices().deleteEnglishBibleDataUsingID(faqId);
               Navigator.pop(context);
             },
             child: Text("Yes",
@@ -265,7 +265,7 @@ class _AdminHolyBibleScreenState extends State<AdminHolyBibleScreen> {
     }
 
     Future<void> submitData() async {
-      FirebaseDatabaseServices().addData({
+      FirebaseDatabaseServices().addEnglishBibleData({
         "heading": topHeadinController.text,
         'chapterName': chapterNameController.text,
         'dataList': dataList,

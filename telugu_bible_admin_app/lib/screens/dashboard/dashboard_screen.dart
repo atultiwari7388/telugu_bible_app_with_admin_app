@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:telugu_admin/screens/Admin/add_daily_quotes.dart';
-import 'package:telugu_admin/screens/Admin/admin_transaction_screen.dart';
-import 'package:telugu_admin/screens/Admin/admin_appointment_screen.dart';
+import 'package:telugu_admin/screens/Admin/admin_english_bible_screen.dart';
 import 'package:telugu_admin/screens/Admin/all_customer_list.dart';
-import 'package:telugu_admin/screens/Admin/admin_platform_screen.dart';
-import 'package:telugu_admin/screens/Admin/admin_total_agents.dart';
 import 'package:telugu_admin/constants/utils/colors.utils.dart';
+import 'package:telugu_admin/screens/Admin/from_the_author_screen.dart';
 import 'package:telugu_admin/services/firebase_db_services.dart';
 import 'package:telugu_admin/widgets/custom_text_widget.dart';
 import 'package:date_time_format/date_time_format.dart';
 import '../Admin/admin_analytics_screen.dart';
 import '../../constants/utils/styles.utils.dart';
+import '../Admin/admin_holy_bible_screen.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   static const String id = "admin-menu";
@@ -46,40 +45,23 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         });
         break;
 
-      // case AdminContactsScreen.id:
-      //   setState(() {
-      //     _selectedScreen = const AdminContactsScreen();
-      //   });
-      //   break;
+      case AdminEnglishBibleScreen.id:
+        setState(() {
+          _selectedScreen = const AdminEnglishBibleScreen();
+        });
+        break;
+
+      case AdminFromTheAuthorScreen.id:
+        setState(() {
+          _selectedScreen = const AdminFromTheAuthorScreen();
+        });
+        break;
 
       case AddDailyQuotes.id:
         setState(() {
           _selectedScreen = const AddDailyQuotes();
         });
         break;
-
-      // case AdminBibleQuizScreen.id:
-      //   setState(() {
-      //     _selectedScreen = const AdminBibleQuizScreen();
-      //   });
-      //   break;
-
-      // case AdminBibleDictionaryScreen.id:
-      //   setState(() {
-      //     _selectedScreen = const AdminBibleDictionaryScreen();
-      //   });
-      //   break;
-
-      // case AdminVideoScreen.id:
-      //   setState(() {
-      //     _selectedScreen = const AdminVideoScreen();
-      //   });
-      //   break;
-      // case AdminSettingsScreen.id:
-      //   setState(() {
-      //     _selectedScreen = const AdminSettingsScreen();
-      //   });
-      //   break;
     }
   }
 
@@ -94,7 +76,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           children: [
             const Visibility(
               child: CustomTextWidget(
-                text: "Telugu Bible",
+                text: "Satya Veda Anweshana Telugu Bible",
                 size: 20,
                 color: AppColors.kLightGreyColor,
                 fontWeight: FontWeight.bold,
@@ -164,46 +146,25 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             icon: FontAwesomeIcons.users,
           ),
           AdminMenuItem(
-            title: 'Holy Bible',
+            title: 'Telugu Bible',
             route: AdminHolyBibleScreen.id,
-            icon: FontAwesomeIcons.user,
+            icon: FontAwesomeIcons.bookBible,
+          ),
+          AdminMenuItem(
+            title: 'English Bible',
+            route: AdminEnglishBibleScreen.id,
+            icon: FontAwesomeIcons.bookBible,
+          ),
+          AdminMenuItem(
+            title: 'From The Author',
+            route: AdminFromTheAuthorScreen.id,
+            icon: FontAwesomeIcons.accessibleIcon,
           ),
           AdminMenuItem(
             title: 'Add Quotes',
             route: AddDailyQuotes.id,
             icon: FontAwesomeIcons.noteSticky,
           ),
-          // AdminMenuItem(
-          //   // title: 'Contacts',
-          //   // route: AdminContactsScreen.id,
-          //   // icon: FontAwesomeIcons.amazon,
-          // ),
-          // AdminMenuItem(
-          //   title: 'Bible Quiz',
-          //   route: AdminBibleQuizScreen.id,
-          //   icon: FontAwesomeIcons.calendar,
-          // ),
-          // AdminMenuItem(
-          //   title: 'Bible Dictionary',
-          //   route: AdminBibleDictionaryScreen.id,
-          //   icon: FontAwesomeIcons.clockRotateLeft,
-          // ),
-
-          // AdminMenuItem(
-          //   title: 'Videos',
-          //   route: AdminVideoScreen.id,
-          //   icon: FontAwesomeIcons.video,
-          // ),
-          // AdminMenuItem(
-          //   title: 'Settings',
-          //   route: AdminSettingsScreen.id,
-          //   icon: FontAwesomeIcons.repeat,
-          // ),
-          // AdminMenuItem(
-          //   title: 'Logout',
-          //   route: AdminPlatformScreen.id,
-          //   icon: FontAwesomeIcons.arrowRightFromBracket,
-          // ),
         ],
         selectedRoute: AdminHomeScreen.id,
         onSelected: (item) {

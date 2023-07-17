@@ -24,57 +24,20 @@ class FirebaseDatabaseServices {
   final CollectionReference holyBibleCollection =
       FirebaseFirestore.instance.collection("holyBible");
 
+  //for English bible section
+  final CollectionReference englishBibleCollection =
+      FirebaseFirestore.instance.collection("englishBible");
+
+  //for from the author section
+  final CollectionReference fromTheAuthorCollection =
+      FirebaseFirestore.instance.collection("fromTheAuthor");
+
   //for dailyQuotes section
   final CollectionReference dailyQuotesCollection =
       FirebaseFirestore.instance.collection("dailyQuote");
 
   final CollectionReference customerLists =
       FirebaseFirestore.instance.collection("users");
-
-  // final CollectionReference agentsList =
-  //     FirebaseFirestore.instance.collection("users");
-
-  // final CollectionReference appointments =
-  //     FirebaseFirestore.instance.collection("appointment_booking");
-
-  // final CollectionReference platforms =
-  //     FirebaseFirestore.instance.collection("platforms");
-
-  // final CollectionReference videos =
-  //     FirebaseFirestore.instance.collection("videos");
-
-//   //===================== Add Platform ==============================
-
-//   Future<void> addPlatform(Map<String, dynamic> newData) {
-//     return platforms.add(newData).then((value) {
-//       showSnackBarMessage("Added", "New Data Added", Colors.green);
-//       // ignore: invalid_return_type_for_catch_error
-//     }).catchError((error) => showSnackBarMessage(
-//         "Something went wrong", error.toString(), Colors.red));
-//   }
-
-// //===================== Update data by id ==============================
-
-//   Future<void> editPlatformUsingId(
-//       String id, Map<String, dynamic> updatedData) {
-//     return platforms.doc(id).update(updatedData).then((value) {
-//       showSnackBarMessage("Updated", "Data Updated", Colors.green);
-//       // ignore: invalid_return_type_for_catch_error
-//     }).catchError((error) => showSnackBarMessage(
-//         "Something went wrong", error.toString(), Colors.red));
-//   }
-
-  // //===================== Delete Platforms by id ==============================
-
-  // Future<void> deletePlatformUsingID(id) {
-  //   return platforms.doc(id).delete().then((value) {
-  //     showSnackBarMessage("Deleted", "Data Deleted", Colors.red);
-  //   })
-  //       // ignore: invalid_return_type_for_catch_error
-  //       .catchError((error) => showSnackBarMessage(
-  //           "Something went Wrong", error.toString(), Colors.red));
-  // }
-
   //===================== Update user data by id ==============================
 
   Future<void> updateUserData(String id, Map<String, dynamic> updatedData) {
@@ -85,41 +48,82 @@ class FirebaseDatabaseServices {
         "Something went wrong", error.toString(), Colors.red));
   }
 
-// //===================== Delete video by id ==============================
+//===================== Add Telugu Bible data ==============================
 
-//   Future<void> deleteVideoById(id) {
-//     return videos.doc(id).delete().then((value) {
-//       showSnackBarMessage("Deleted", "Data Deleted", Colors.red);
-//     })
-//         // ignore: invalid_return_type_for_catch_error
-//         .catchError((error) => showSnackBarMessage(
-//             "Something went Wrong", error.toString(), Colors.red));
-//   }
+  Future<void> addTeluguBibleData(Map<String, dynamic> newData) {
+    return holyBibleCollection.add(newData).then((value) {
+      showSnackBarMessage("Added", "New Data Added", Colors.green);
+      // ignore: invalid_return_type_for_catch_error
+    }).catchError((error) => showSnackBarMessage(
+        "Something went wrong", error.toString(), Colors.red));
+  }
 
-//   //===================== Update Video data by id ==============================
+//===================== Add English Bible data ==============================
 
-//   Future<void> editVideoById(String id, Map<String, dynamic> updatedData) {
-//     return videos.doc(id).update(updatedData).then((value) {
-//       showSnackBarMessage("Updated", "Data Updated", Colors.green);
-//       // ignore: invalid_return_type_for_catch_error
-//     }).catchError((error) => showSnackBarMessage(
-//         "Something went wrong", error.toString(), Colors.red));
-//   }
+  Future<void> addEnglishBibleData(Map<String, dynamic> newData) {
+    return englishBibleCollection.add(newData).then((value) {
+      showSnackBarMessage("Added", "New Data Added", Colors.green);
+      // ignore: invalid_return_type_for_catch_error
+    }).catchError((error) => showSnackBarMessage(
+        "Something went wrong", error.toString(), Colors.red));
+  }
 
-//   //===================== Add Video ==============================
+//===================== Add From the Author Data ==============================
 
-//   Future<void> addVideo(Map<String, dynamic> newData) {
-//     return videos.add(newData).then((value) {
-//       showSnackBarMessage("Added", "New Data Added", Colors.green);
-//       // ignore: invalid_return_type_for_catch_error
-//     }).catchError((error) => showSnackBarMessage(
-//         "Something went wrong", error.toString(), Colors.red));
-//   }
+  Future<void> addFromTheAuthorData(Map<String, dynamic> newData) {
+    return fromTheAuthorCollection.add(newData).then((value) {
+      showSnackBarMessage("Added", "New Data Added", Colors.green);
+      // ignore: invalid_return_type_for_catch_error
+    }).catchError((error) => showSnackBarMessage(
+        "Something went wrong", error.toString(), Colors.red));
+  }
 
-//===================== Delete faq by id ==============================
+//=================== Add Quotes Data ===================================
 
-  Future<void> deleteDataUsingID(id) {
+  Future<void> addQuotesData(Map<String, dynamic> newData) {
+    return dailyQuotesCollection.add(newData).then((value) {
+      showSnackBarMessage("Added", "New Data Added", Colors.green);
+      // ignore: invalid_return_type_for_catch_error
+    }).catchError((error) => showSnackBarMessage(
+        "Something went wrong", error.toString(), Colors.red));
+  }
+
+//===================== Delete telugu bible data by id ==============================
+
+  Future<void> deleteTeluguBibleDataUsingID(id) {
     return holyBibleCollection.doc(id).delete().then((value) {
+      showSnackBarMessage("Deleted", "Data Deleted", Colors.red);
+    })
+        // ignore: invalid_return_type_for_catch_error
+        .catchError((error) => showSnackBarMessage(
+            "Something went Wrong", error.toString(), Colors.red));
+  }
+
+//===================== Delete English bible data by id ==============================
+
+  Future<void> deleteEnglishBibleDataUsingID(id) {
+    return englishBibleCollection.doc(id).delete().then((value) {
+      showSnackBarMessage("Deleted", "Data Deleted", Colors.red);
+    })
+        // ignore: invalid_return_type_for_catch_error
+        .catchError((error) => showSnackBarMessage(
+            "Something went Wrong", error.toString(), Colors.red));
+  }
+
+//===================== Delete From the Author data by id ==============================
+
+  Future<void> deleteFromTheAuthorDataUsingID(id) {
+    return fromTheAuthorCollection.doc(id).delete().then((value) {
+      showSnackBarMessage("Deleted", "Data Deleted", Colors.red);
+    })
+        // ignore: invalid_return_type_for_catch_error
+        .catchError((error) => showSnackBarMessage(
+            "Something went Wrong", error.toString(), Colors.red));
+  }
+
+//======================= Delete Quotes Data ============================
+  Future<void> deleteQuoteDataUsingID(id) {
+    return dailyQuotesCollection.doc(id).delete().then((value) {
       showSnackBarMessage("Deleted", "Data Deleted", Colors.red);
     })
         // ignore: invalid_return_type_for_catch_error
@@ -135,33 +139,6 @@ class FirebaseDatabaseServices {
       // ignore: invalid_return_type_for_catch_error
     }).catchError((error) => showSnackBarMessage(
         "Something went wrong", error.toString(), Colors.red));
-  }
-
-//===================== Add data by id ==============================
-
-  Future<void> addData(Map<String, dynamic> newData) {
-    return holyBibleCollection.add(newData).then((value) {
-      showSnackBarMessage("Added", "New Data Added", Colors.green);
-      // ignore: invalid_return_type_for_catch_error
-    }).catchError((error) => showSnackBarMessage(
-        "Something went wrong", error.toString(), Colors.red));
-  }
-
-  Future<void> addQuotesData(Map<String, dynamic> newData) {
-    return dailyQuotesCollection.add(newData).then((value) {
-      showSnackBarMessage("Added", "New Data Added", Colors.green);
-      // ignore: invalid_return_type_for_catch_error
-    }).catchError((error) => showSnackBarMessage(
-        "Something went wrong", error.toString(), Colors.red));
-  }
-
-  Future<void> deleteQuoteDataUsingID(id) {
-    return dailyQuotesCollection.doc(id).delete().then((value) {
-      showSnackBarMessage("Deleted", "Data Deleted", Colors.red);
-    })
-        // ignore: invalid_return_type_for_catch_error
-        .catchError((error) => showSnackBarMessage(
-            "Something went Wrong", error.toString(), Colors.red));
   }
 
 //================= fetch data using uid =============================

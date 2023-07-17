@@ -2,17 +2,8 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:telugu_bible/Views/contacts_screen.dart';
-import 'package:telugu_bible/Views/favorite_verses_screen.dart';
-import 'package:telugu_bible/Views/holy_bible_screen.dart';
-import 'package:telugu_bible/Views/schedule_bible_study.dart';
-import 'package:telugu_bible/Views/sermon_notes.dart';
 import 'package:telugu_bible/controllers/auth_controller.dart';
-import 'package:telugu_bible/utis/app_style.dart';
 import 'package:get/get.dart';
-import 'package:share/share.dart';
-import 'package:telugu_bible/utis/colors.dart';
-import 'package:telugu_bible/utis/snack_bar_msg.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:speech_to_text/speech_recognition_result.dart';
 

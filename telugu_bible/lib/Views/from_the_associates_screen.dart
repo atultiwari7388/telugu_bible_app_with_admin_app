@@ -13,7 +13,7 @@ class _FromTheAssociatesScreenState extends State<FromTheAssociatesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("From The Associates Screen"),
+        title: const Text("From The Associates"),
       ),
     );
   }

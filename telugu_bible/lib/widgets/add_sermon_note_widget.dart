@@ -113,13 +113,6 @@ class _AddNewSermonPageState extends State<AddNewSermonPage> {
                 ),
               ),
               const SizedBox(height: 16),
-              TextField(
-                controller: sermonController.referenceController,
-                decoration: const InputDecoration(
-                  labelText: 'reference',
-                ),
-              ),
-              const SizedBox(height: 16),
               ElevatedButton(
                   onPressed: () {
                     sermonController.addSermonNotes(selectedDate, selectedTime);

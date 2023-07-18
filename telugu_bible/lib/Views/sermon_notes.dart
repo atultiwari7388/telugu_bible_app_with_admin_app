@@ -58,8 +58,8 @@ class _SermonNotesScreenState extends State<SermonNotesScreen> {
                                   final title = sermonData["title"];
                                   final speaker = sermonData["speaker"];
                                   final place = sermonData["place"];
-                                  final reference = sermonData["reference"];
                                   final date = sermonData["date"];
+                                  final time = sermonData["time"];
                                   final documentId = sermonData.id;
                                   return Container(
                                       padding: EdgeInsets.all(
@@ -105,7 +105,8 @@ class _SermonNotesScreenState extends State<SermonNotesScreen> {
                                                       place: place,
                                                       speaker: speaker,
                                                       title: title,
-                                                      reference: reference,
+                                                      date: date,
+                                                      time: time,
                                                     ),
                                                   ),
                                               icon: const Icon(Icons.edit,

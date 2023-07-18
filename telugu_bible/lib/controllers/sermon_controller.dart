@@ -16,8 +16,6 @@ class SermonController extends GetxController {
       TextEditingController(text: "NA");
   final TextEditingController placeController =
       TextEditingController(text: "NA");
-  final TextEditingController referenceController =
-      TextEditingController(text: "NA");
 
   //===================== Add SermonNote Function ======================
   void addSermonNotes(DateTime selectedDate, TimeOfDay selectedTime) {
@@ -28,7 +26,6 @@ class SermonController extends GetxController {
       "title": titleController.text.toString(),
       "speaker": speakerController.text.toString(),
       "place": placeController.text.toString(),
-      "reference": referenceController.text.toString(),
       "date": formattedDate,
       "time": formattedTime,
       "created_at": DateTime.now(),

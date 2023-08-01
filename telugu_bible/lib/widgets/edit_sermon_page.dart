@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:telugu_bible/services/firebase_services.dart';
 import 'package:telugu_bible/utis/colors.dart';
 import 'package:telugu_bible/widgets/custom_square_button_widget.dart';
 import '../controllers/sermon_controller.dart';
@@ -31,10 +32,11 @@ class EditSermonDataWidget extends StatefulWidget {
 
 class _EditSermonDataWidgetState extends State<EditSermonDataWidget> {
   final sermonController = Get.put(SermonController());
+  final FirebaseServices firebaseServices = FirebaseServices();
   late TextEditingController referenceController;
   late TextEditingController notesController;
-  List<String> referenceData = [];
-  List<String> notesData = [];
+  // List<String> referenceData = [];
+  // List<String> notesData = [];
 
   @override
   void initState() {
@@ -53,20 +55,29 @@ class _EditSermonDataWidgetState extends State<EditSermonDataWidget> {
   }
 
   void saveReferenceData() {
-    final updatedData = {
-      'reference': referenceController.text,
-      'updated_at': DateTime.now(),
-    };
-    sermonController.editData(widget.id, updatedData);
-    // showSnackBarMessage('Success', 'Sermon data saved', Colors.green);
+    final referenceData = firebaseServices.sermonNotes.doc();
+    referenceData.collection("sermonData").add({
+      "reference": referenceController.text.toString(),
+      "created_at": DateTime.now(),
+      "updated_at": DateTime.now(),
+    }).then((value) {
+      showSnackBarMessage("Success", "Data Addes", Colors.green);
+    }).onError((error, stackTrace) {
+      showSnackBarMessage("Error", error.toString(), Colors.red);
+    });
   }
 
   void saveNotesData() {
-    final updatedData = {
-      'notes': notesController.text,
-      'updated_at': DateTime.now(),
-    };
-    sermonController.editData(widget.id, updatedData);
+    final notesData = firebaseServices.sermonNotes.doc();
+    notesData.collection("sermonData").add({
+      "reference": notesController.text.toString(),
+      "created_at": DateTime.now(),
+      "updated_at": DateTime.now(),
+    }).then((value) {
+      showSnackBarMessage("Success", "Data Addes", Colors.green);
+    }).onError((error, stackTrace) {
+      showSnackBarMessage("Error", error.toString(), Colors.red);
+    });
     // showSnackBarMessage('Success', 'Sermon data saved', Colors.green);
   }
 
@@ -174,6 +185,8 @@ class _EditSermonDataWidgetState extends State<EditSermonDataWidget> {
               const SizedBox(height: 30),
               StreamBuilder<QuerySnapshot>(
                 stream: sermonController.firebaseServices.sermonNotes
+                    .doc()
+                    .collection("sermonData")
                     .where("userId",
                         isEqualTo: sermonController.auth.currentUser!.uid)
                     .snapshots(),
@@ -218,18 +231,6 @@ class _EditSermonDataWidgetState extends State<EditSermonDataWidget> {
                   }
                 },
               )
-              // const Text('References:',
-              //     style: TextStyle(fontWeight: FontWeight.bold)),
-              // Column(
-              //   children:
-              //       referenceData.map((reference) => Text(reference)).toList(),
-              // ),
-              // const SizedBox(height: 10),
-              // const Text('Notes:',
-              //     style: TextStyle(fontWeight: FontWeight.bold)),
-              // Column(
-              //   children: notesData.map((note) => Text(note)).toList(),
-              // ),
             ],
           ),
         ),
@@ -263,123 +264,6 @@ class _EditSermonDataWidgetState extends State<EditSermonDataWidget> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:telugu_bible/helper/dimension_helper.dart';
-// import 'package:telugu_bible/utis/colors.dart';
-// import 'package:telugu_bible/widgets/custom_square_button_widget.dart';
-// import '../controllers/sermon_controller.dart';
-
-// class EditSermonDataWidget extends StatefulWidget {
-//   const EditSermonDataWidget({
-//     Key? key,
-//     required this.id,
-//     required this.title,
-//     required this.speaker,
-//     required this.place,
-//     required this.date,
-//     required this.time,
-//   }) : super(key: key);
-
-//   final String id;
-//   final String title;
-//   final String speaker;
-//   final String place;
-//   final String date, time;
-
-//   @override
-//   State<EditSermonDataWidget> createState() => _EditSermonDataWidgetState();
-// }
-
-// class _EditSermonDataWidgetState extends State<EditSermonDataWidget> {
-//   final sermonController = Get.put(SermonController());
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text("Edit Sermons"),
-//       ),
-//       body: SingleChildScrollView(
-//         child: Padding(
-//           padding: const EdgeInsets.all(8.0),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               buildTopSection(),
-//               SizedBox(height: AppDimensionHelper.getHt(10)),
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   CustomSquareButtonWidget(text: "Add Reference", onTap: () {}),
-//                   Container(
-//                       height: AppDimensionHelper.getHt(70),
-//                       width: AppDimensionHelper.getWd(150),
-//                       decoration: BoxDecoration(
-//                           color: AppColors.kPrimaryColor,
-//                           borderRadius: BorderRadius.circular(6)),
-//                       child: const Center(
-//                           child: Text(
-//                               "Enter\n first 3 letter of the block+\nspace +Chapter Number+\nspace+reference number ",
-//                               textAlign: TextAlign.center,
-//                               style: TextStyle(
-//                                   color: Colors.white, fontSize: 12)))),
-//                   CustomSquareButtonWidget(text: "Add Notes", onTap: () {}),
-//                 ],
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-
-// //========================== Build Top Section ================================
-//   Widget buildTopSection() {
-//     return Container(
-//       padding: const EdgeInsets.all(5),
-//       margin: const EdgeInsets.all(5),
-//       decoration: BoxDecoration(
-//         color: AppColors.kLightColor,
-//         borderRadius: BorderRadius.circular(10),
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               Text("Date : ${widget.date}"),
-//               Text("Time : ${widget.time}"),
-//               Text("Speaker : ${widget.speaker}"),
-//             ],
-//           ),
-//           SizedBox(height: AppDimensionHelper.getHt(10)),
-//           Text("Title of the Sermon : ${widget.title}")
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-
-
-
-
-
-
-
-
-
 
 
 

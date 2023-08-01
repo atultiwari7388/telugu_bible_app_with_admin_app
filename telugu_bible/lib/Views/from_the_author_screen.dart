@@ -218,13 +218,14 @@ class _FromTheAuthorScreenState extends State<FromTheAuthorScreen> {
                                 Text(
                                   selectedChapterName,
                                   style: AppFontStyles.smallText.copyWith(
-                                    fontSize: 25,
+                                    fontSize: AppDimensionHelper.getWd(20),
                                   ),
                                 ),
                               ],
                             ),
                           ),
                         ),
+                        SizedBox(width: AppDimensionHelper.getWd(5)),
                         IconButton(
                           icon: const Icon(Icons.arrow_forward_ios, size: 25),
                           onPressed: () {

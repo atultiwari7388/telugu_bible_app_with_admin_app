@@ -207,24 +207,23 @@ class _EnglishBibleScreenState extends State<EnglishBibleScreen> {
                             }
                           },
                         ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              // Handle chapter tap if needed
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  selectedChapterName,
-                                  style: AppFontStyles.smallText.copyWith(
-                                    fontSize: 25,
-                                  ),
+                        GestureDetector(
+                          onTap: () {
+                            // Handle chapter tap if needed
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                selectedChapterName,
+                                style: AppFontStyles.smallText.copyWith(
+                                  fontSize: AppDimensionHelper.getWd(20),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
+                        SizedBox(width: AppDimensionHelper.getWd(5)),
                         IconButton(
                           icon: const Icon(Icons.arrow_forward_ios, size: 25),
                           onPressed: () {

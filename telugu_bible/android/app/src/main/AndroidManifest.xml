@@ -23,7 +23,7 @@
    
    
    <application
-        android:label="telugu_bible"
+        android:label="Satya Veda Anweshana"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 

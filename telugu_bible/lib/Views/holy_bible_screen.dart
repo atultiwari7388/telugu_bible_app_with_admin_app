@@ -114,32 +114,6 @@ class _HolyBibleScreenState extends State<HolyBibleScreen> {
 
   //add data to favorite//
 
-  // void addToFavorites(String data) {
-  //   final currentUser = auth.currentUser!.uid;
-  //   // ignore: unnecessary_null_comparison
-  //   if (currentUser != null) {
-  //     final favoritesRef = firebaseServices.favorite.doc();
-  //     favoritesRef.set({
-  //       'data': selectedChapterDataList,
-  //       'chapterName': selectedChapterName,
-  //       'heading': headingName,
-  //       "uid": currentUser,
-  //     }).then((value) {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(content: Text('Added to favorites')),
-  //       );
-  //     }).catchError((error) {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(content: Text('Failed to add to favorites')),
-  //       );
-  //     });
-  //   } else {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(content: Text('User not logged in')),
-  //     );
-  //   }
-  // }
-
   void addToFavorites(String data) {
     final currentUser = auth.currentUser;
     if (currentUser != null) {
